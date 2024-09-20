@@ -1,6 +1,3 @@
-// Online C# Editor for free
-// Write, Edit and Run your C# code using C# Online Compiler
-
 using System;
 
 public class HelloWorld
@@ -9,7 +6,14 @@ public class HelloWorld
     {
         var a = Convert.ToInt32(Console.ReadLine());
         var b = Convert.ToInt32(Console.ReadLine());
-        (a, b) = (b, a);
-        Console.WriteLine($"a = {a}, b = {b}");
+
+        Console.WriteLine($"do perestanovki: a = {a}, b = {b}");
+
+        a = a + b;
+        b = a - b;
+        a = a - b;
+
+        Console.WriteLine($"posle perestanovki: a = {a}, b = {b}");
+
     }
 }
