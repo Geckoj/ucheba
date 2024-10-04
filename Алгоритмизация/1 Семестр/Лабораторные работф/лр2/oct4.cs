@@ -7,7 +7,7 @@ class Program
         int n = Convert.ToInt32(Console.ReadLine());
 
         int previousElement = 0;
-        int currentElement;
+        int currentElement = 0;
 
         int maxEqualEvenCount = 0;
         int equalEvenCount = 0;
