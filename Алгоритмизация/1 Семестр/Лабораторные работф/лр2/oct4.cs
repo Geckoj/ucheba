@@ -56,7 +56,7 @@ public class HelloWorld
               max3 = Math.Max(max3, mem3);
             }
             
-            Console.WriteLine($"{n} {a} {b}     {counter3}, {mem3}, {max3}");
+            // Console.WriteLine($"{n} {a} {b}     {counter3}, {mem3}, {max3}");
             
             
         }
