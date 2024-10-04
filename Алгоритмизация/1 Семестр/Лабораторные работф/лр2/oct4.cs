@@ -69,7 +69,6 @@ public class HelloWorld
     static int isEvenAndEqual(int a, int b, int prev, int chet)
     {
         chet = chet;
-        int counterrr = 0;
         if (((a % 2 == 0) && (b % 2 == 0) && (a == b)) || ((a % 2 == 0) && (prev % 2 == 0) && (a == prev)))
         {
           chet += 1;
