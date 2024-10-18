@@ -13,7 +13,7 @@ namespace HelloWorld
 		  int r;
 			
 			current = Convert.ToInt32(Console.ReadLine());
-			result = flip(current, 0, 0, 0);
+			result = flip(current);
 			if (result > -1)
       {
 			    Console.WriteLine($"вход {current}   выход {result}");
@@ -23,62 +23,63 @@ namespace HelloWorld
         Console.WriteLine($"нет четных цифр");
       }
 			
-			while (current >= -1) 
+			while (current >= 0) 
 			{
 			  current = Convert.ToInt32(Console.ReadLine());
 
-        result = flip(current, 0, 0, 0);
-        if (result >= 0)
+        result = flip(current);
+        if (result > -1)
         {
 			    Console.WriteLine($"вход {current}   выход {result}");
         }
         else
         {
-          Console.WriteLine($"нет четных цифр");
+          Console.WriteLine($"вход {current}   выход   нет четных цифр");
         }
 			  
 			}
 		}
 		
-		static int flip(int conv, int rev, int r, int have_zero)
-		{
-        conv = conv;
-        rev = 0;
-        have_zero = 0;
-        
-        while(conv > 0)
+		static int flip(int conv)
+{
+    if (conv == 0) return 0;
+
+    int rev = 0;
+    int haveZero = 0;
+
+    while (conv > 0)
+    {
+        int digit = conv % 10;
+
+        if (digit == 0)
         {
-          if ((conv % 10) % 2 == 0)
-          {
-            r = conv % 10;
-          }
-          else
-          {
-            r = 0;
-          }
-          if (r != 0)
-          {
-            rev = rev * 10 + r;
-          }
-          else if ((conv % 10) == 0)
-          {
-            rev = rev * 10;
-            have_zero = 1;
-          }
-          else
-          {
-            rev = rev;
-            if (have_zero > 0)
-            {
-              rev = 0;
-            }
-          }
-          conv = conv / 10;
+            haveZero++;
+            rev = rev * 10 + digit;
         }
-        
+        else if (digit % 2 == 0)
+        {
+            rev = rev * 10 + digit;
+        }
+
+        conv /= 10;
+    }
+
+    if (rev == 0)
+    {
+        if (haveZero > 0)
+        {
+            return 0;
+        }
+        else
+        {
+            return -1;
+        }
+    }
+    else
+    {
         return rev;
-        
-		}
+    }
+}
 		
 	}
 }
