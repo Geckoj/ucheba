@@ -45,6 +45,10 @@ namespace HelloWorld
           {
             rev = rev * 10 + r;
           }
+          else if ((conv % 10) == 0)
+          {
+            rev = rev * 10;
+          }
           else
           {
             rev = rev;
