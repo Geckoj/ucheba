@@ -1,89 +1,112 @@
 using System;
 
-class Program
+namespace MyApp
 {
-    static void Main(string[] args)
+    internal class Program
     {
-        int n = Convert.ToInt32(Console.ReadLine());
-
-        int previousElement = 0;
-        int currentElement = 0;
-
-        int maxEqualEvenCount = 0;
-        int equalEvenCount = 0;
-
-        int oneCount = 0;
-        int minOneCount = int.MaxValue;
-        int memOne = 0;
-
-        int maxEvenSumm = 0;
-        int evenSumm = 0;
-
-        for (int i = 0; i < n; i++)
+        static void Main(string[] args)
         {
-            currentElement = Convert.ToInt32(Console.ReadLine());
+            int n = Convert.ToInt32(Console.ReadLine());
 
-            if (currentElement % 2 == 0)
+            int current;
+            int one_count = 0;
+            int min_one_count = Int32.MaxValue;
+            int prev = 0;
+
+            int equalEvenCount = 0;
+            int maxEqualEvenCount = 0;
+
+            int summ = 0;
+            int max_summ = Int32.MinValue;
+            
+            for (int i = 0; i < n; i++)
             {
-                if (currentElement == previousElement)
+                current = Convert.ToInt32(Console.ReadLine());
+                
+                if (current == 1)
                 {
-                    equalEvenCount++;
+                    one_count++;
                 }
                 else
                 {
-                    equalEvenCount = 1;
+                    if (one_count > 0)
+                    {
+                        min_one_count = Math.Min(min_one_count, one_count);
+                        one_count = 0;
+                    }
                 }
-                maxEqualEvenCount = Math.Max(maxEqualEvenCount, equalEvenCount);
+                
+                if (Math.Abs(current % 2) == 0)
+                {
+                    if (current == prev)
+                    {
+                        equalEvenCount++;
+                    }
+                    else
+                    {
+                        equalEvenCount = 1;
+                    }
+                    maxEqualEvenCount = Math.Max(maxEqualEvenCount, equalEvenCount);
+                }
+                else
+                {
+                    equalEvenCount = 0;
+                }
+                
+                if (Math.Abs(current % 2) == 0)
+                {
+                    summ += current;
+                }
+                else
+                {
+                    if (summ != 0)
+                    {
+                        max_summ = Math.Max(max_summ, summ);
+                        summ = 0;
+                    }
+                    else
+                    {
+                        max_summ = Math.Max(max_summ, 0);
+                    }
+                    
+                }
+
+
+
+                // Console.WriteLine($"summ: {summ}, max_summ: {max_summ}");
+                prev = current;
+            }
+
+            if (one_count > 0)
+            {
+                min_one_count = Math.Min(min_one_count, one_count);
+            }
+
+            if (min_one_count == Int32.MaxValue)
+            {
+                min_one_count = 0;
+            }
+
+            if (summ != 0)
+            {
+                max_summ = Math.Max(max_summ, summ);
             }
             else
             {
-                equalEvenCount = 0;
+                max_summ = Math.Max(max_summ, 0);
             }
 
-
-            //================================//
-            memOne = oneCount;
+            if (max_summ == Int32.MinValue)
+            {
+                max_summ = 0;
+            }
+            // Console.WriteLine($"summ: {summ}, max_summ: {max_summ}");
             
-            if (currentElement == 1)
-            {
-                oneCount++;
-            }
-            else
-            {
-                oneCount = 0;
-            }
-
-            if (oneCount == 0 && memOne != 0)
-            {
-                minOneCount = Math.Min(minOneCount, memOne);
-            }
-
-            previousElement = currentElement;
-            Console.WriteLine($"cur: {oneCount},  min: {minOneCount},  mem: {memOne}");
-
-            //===============================//
-
-            if (currentElement % 2 == 0)
-            {
-                evenSumm += currentElement;
-                maxEvenSumm = Math.Max(maxEvenSumm, evenSumm);
-
-            }
-            else
-            {
-                evenSumm = 0;
-            }
-
+            
+            Console.WriteLine($"1. максимальная длина последовательности четных равных элементов: {maxEqualEvenCount}");
+            Console.WriteLine($"2. минимальная длина последовательности из единиц: {min_one_count}");
+            Console.WriteLine($"3. максимальная сумма последовательности из четных элементов: {max_summ}");
+            
         }
-        if (minOneCount == int.MaxValue)
-        {
-            minOneCount = Math.Min(minOneCount, oneCount);
-        }
-
-        maxEvenSumm = Math.Max(evenSumm, maxEvenSumm);
-
-        Console.WriteLine($"минимальная длина последовательности из единиц: {minOneCount}");
-        Console.WriteLine($"максимальная длина четный равных элементов: {maxEqualEvenCount}");
-        Console.WriteLine($"максимальная сумма идущих подряд четных элеметов: {maxEvenSumm}");
     }
 }
