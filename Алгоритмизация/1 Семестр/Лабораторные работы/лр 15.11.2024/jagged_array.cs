@@ -1,4 +1,5 @@
 using System;
+using System.Data;
 
 namespace MyApp
 {
@@ -17,10 +18,18 @@ namespace MyApp
         {
             Random rnd = new Random();
             int length_in;
+            int[] random_lengths = new int[array.Length];
 
             for (int i = 0; i < array.Length; i++)
             {
-                length_in = rnd.Next(1, 20);
+                length_in = rnd.Next(1, array.Length + 10);
+
+                while (Array.IndexOf(array, length_in) != -1)
+                {
+                    length_in = rnd.Next(1, array.Length + 10);
+                }
+                
+                random_lengths[i] = length_in;
                 int[] elem = new int[length_in];
                 for (int j = 0; j < length_in; j++)
                 {
