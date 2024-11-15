@@ -6,7 +6,7 @@ namespace MyApp
     {
         static void Main(string[] args)
         {
-            Console.WrireLine("n = ");
+            Console.WriteLine("n = ");
             int n = Convert.ToInt32(Console.ReadLine());
             int[][] jag = new int[n][]; 
 
