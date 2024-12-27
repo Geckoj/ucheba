@@ -21,8 +21,6 @@ namespace Xleb
 
             public Xleb(int temp, int time, string name) : base(temp, time)
             {
-                this.temp = temp;
-                this.time = time;
                 this.name = name;
             }
 
