@@ -6,15 +6,29 @@ class Program
 
     public static void Main()
     {
-        Random random = new Random();
+        
 
         Console.WriteLine("Список элементов:");
-        for (int i = 0; i < 25; i++)
+
+        Console.WriteLine("Введите элементы списка ('x' чтобы закончить)");
+        string input = "-1";
+        while (input != "x")
         {
-            int k = random.Next(1, 10);
-            elements.Add(k);
-            Console.Write($"{k}\t");
+            input = Console.ReadLine();
+            if (input != "x")
+            {
+                elements.Add(Convert.ToInt32(input));
+            }
         }
+
+        //Random random = new Random();
+        //for (int i = 0; i < 25; i++)
+        //{
+        //    int k = random.Next(1, 10);
+        //    elements.Add(k);
+        //    Console.Write($"{k}\t");
+        //}
+
         Console.WriteLine('\n');
         Console.WriteLine("Состав списка:");
 
