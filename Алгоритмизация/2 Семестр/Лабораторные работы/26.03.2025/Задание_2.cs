@@ -1,62 +1,73 @@
 //Гонка
 namespace Program
 {
-    class Program
+    public class Program
     {
-        public static int rect_x1 = -5;
-        public static int rect_y1 = -5;
-        public static int rect_x2 = 30;
-        public static int rect_y2 = 30;
+        public static int start = 0;
+        public static int finish = 200;
+        public static bool end_of_race = false;
+        public static int time = 5;
 
-        public delegate void Rect(int x, int y);
-        public static event Rect OnMove;
-
-        class Point
+        public delegate void Race(string name);
+        public static event Race OnMove;
+        public class Part()
         {
-            public int x { get; set; }
-            public int y { get; set; }
+            public string name { get; set; }
+            public int velocity = 2;
+            public int travel = 0;
+
             public void Move()
             {
                 Random random = new Random();
-                int movement_x = random.Next(-5, 5);
-                int movement_y = random.Next(-5, 5);
-
-                x += movement_x;
-                y += movement_y;
-
-                if (!(x >= rect_x1 && x <= rect_x2 && y >= rect_y1 && y <= rect_y2))
+                travel += velocity * time;
+                velocity += random.Next(0, 2);
+                
+                if (travel >= finish)
                 {
-                    OnMove(x, y);
+                    OnMove(name);
                 }
                 else
                 {
-                    Console.WriteLine($"Координаты:\t{x}\t{y};");
+                    Console.WriteLine($"Участник {name} прошёл расстояние {travel} метров" +
+                        $". Текущая скорость {velocity} м/с");
                 }
             }
         }
-
-        public class Handler_1
+        public class Handler
         {
-            public void Msg(int x, int y)
+            public void Msg(string name)
             {
-                Console.WriteLine($"Координаты:\t{x}\t{y}; Точка вышла за пределы прямоугольника.");
+                Console.WriteLine($"Участник {name} прибыл к финишу");
+                end_of_race = true;
             }
         }
-        static void Main()
-        { 
-            Point point = new Point 
-            { 
-                x = 15, 
-                y = 15
+
+        public static void Main()
+        {
+            Part part_1 = new Part
+            {
+                name = "Номер_1",
+            };
+            Part part_2 = new Part
+            {
+                name = "Номер_2",
+
+            };
+            Part part_3 = new Part
+            {
+                name = "Номер_3",
             };
 
-            Handler_1 handler_1 = new Handler_1();
+            Handler handler = new Handler();
+            OnMove += handler.Msg;
 
-            OnMove += handler_1.Msg;
-
-            for (int i = 0; i < 30; i++)
+            while (!end_of_race)
             {
-                point.Move();    
+                Console.Clear();
+                part_1.Move();
+                part_2.Move();
+                part_3.Move();
+                Console.ReadKey();
             }
         }
     }
