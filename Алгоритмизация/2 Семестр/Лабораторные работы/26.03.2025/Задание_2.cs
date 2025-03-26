@@ -4,27 +4,33 @@ namespace Program
     public class Program
     {
         public static int start = 0;
-        public static int finish = 20;
+        public static int finish = 200;
         public static bool end_of_race = false;
+        public static int time = 5;
         public class Part()
         {
             public delegate void Race(string name);
             public event Race OnMove; 
             
             public string name { get; set; }
-            public int x = start;
+            public int velocity = 2;
+            public int travel = 0;
 
             public void Move()
             {
                 Random random = new Random();
-                x += random.Next(0, 2);
-                if (x >= finish)
+                travel += velocity * time;
+                velocity += random.Next(0, 2);
+                
+
+                if (travel >= finish)
                 {
                     OnMove(name);
                 }
                 else
                 {
-                    Console.WriteLine($"Участник {name} прошёл расстояние {x}");
+                    Console.WriteLine($"Участник {name} прошёл расстояние {travel} метров" +
+                        $". Текущая скорость {velocity} м/с");
                 }
             }
         }
@@ -64,8 +70,7 @@ namespace Program
                 part_1.Move();
                 part_2.Move();
                 part_3.Move();
-                Thread.Sleep(250);
-                //Console.ReadKey();
+                Console.ReadKey();
             }
         }
     }
