@@ -1,4 +1,4 @@
-// Точка
+//Точка
 namespace Program
 {
     class Program
@@ -7,11 +7,12 @@ namespace Program
         public static int rect_y1 = -5;
         public static int rect_x2 = 30;
         public static int rect_y2 = 30;
+
+        public delegate void Rect(int x, int y);
+        public static event Rect OnMove;
+
         class Point
         {
-            public delegate void Rect(int x, int y);
-            public event Rect OnMove;
-            
             public int x { get; set; }
             public int y { get; set; }
             public void Move()
@@ -51,7 +52,7 @@ namespace Program
 
             Handler_1 handler_1 = new Handler_1();
 
-            point.OnMove += handler_1.Msg;
+            OnMove += handler_1.Msg;
 
             for (int i = 0; i < 30; i++)
             {
